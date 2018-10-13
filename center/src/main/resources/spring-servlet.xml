@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:metrics="http://www.ryantenney.com/schema/metrics"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       		http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+       		http://www.ryantenney.com/schema/metrics
+       		http://www.ryantenney.com/schema/metrics/metrics.xsd
+       		http://www.springframework.org/schema/context
+       		http://www.springframework.org/schema/context/spring-context-4.2.xsd
+       		http://www.springframework.org/schema/mvc
+       		http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
+       		
+    
+	   		
+    <!-- springMVC的全局异常处理 -->   		
+<!--     <bean class="hk.linktech.flow.handler.ExceptionHandler"/> -->
+
+    <!-- 视图解析器 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/view/" p:suffix=".jsp" />
+	
+	<!-- SpringMVC上传文件时，需要配置MultipartResolver处理器 --> 
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="utf-8" />
+		<!-- 最大500M -->
+		<property name="maxUploadSize" value="524288000" />
+		<!-- 最小 1KB-->
+		<property name="maxInMemorySize" value="1024" />
+	</bean>
+	<bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">
+		<property name="config">
+			<bean class="com.google.code.kaptcha.util.Config">
+				<constructor-arg>
+					<props>
+						<prop key="kaptcha.border">yes</prop>
+						<prop key="kaptcha.border.color">105,179,90</prop>
+						<prop key="kaptcha.textproducer.font.color">blue</prop>
+						<prop key="kaptcha.image.width">125</prop>
+						<prop key="kaptcha.image.height">45</prop>
+						<prop key="kaptcha.textproducer.font.size">45</prop>
+						<prop key="kaptcha.session.key">code</prop>
+						<prop key="kaptcha.textproducer.char.length">4</prop>
+						<prop key="kaptcha.textproducer.font.names">宋体,楷体,微软雅黑</prop>
+					</props>
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 	<mvc:interceptors>
+            <mvc:interceptor>
+                <mvc:mapping path="/**"/>
+                <bean class="hk.linktech.flow.filter.ShiroInterceptor"/>
+            </mvc:interceptor>
+        </mvc:interceptors>  -->
+	
+</beans>

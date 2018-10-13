@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.MtOfferMapper">
+  <resultMap id="BaseResultMap" type="com.beans.MtOffer">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_id" jdbcType="VARCHAR" property="order_id" />
+    <result column="act_detail_id" jdbcType="VARCHAR" property="act_detail_id" />
+    <result column="reduce_fee" jdbcType="VARCHAR" property="reduce_fee" />
+    <result column="mt_charge" jdbcType="VARCHAR" property="mt_charge" />
+    <result column="poi_charge" jdbcType="VARCHAR" property="poi_charge" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="rider_fee" jdbcType="VARCHAR" property="rider_fee" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, order_id, act_detail_id, reduce_fee, mt_charge, poi_charge, remark, type, rider_fee
+  </sql>
+  <select id="selectByExample" parameterType="com.beans.MtOfferExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mt_offer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mt_offer
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from mt_offer
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.beans.MtOfferExample">
+    delete from mt_offer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.beans.MtOffer">
+    insert into mt_offer (id, order_id, act_detail_id, 
+      reduce_fee, mt_charge, poi_charge, 
+      remark, type, rider_fee
+      )
+    values (#{id,jdbcType=BIGINT}, #{order_id,jdbcType=VARCHAR}, #{act_detail_id,jdbcType=VARCHAR}, 
+      #{reduce_fee,jdbcType=VARCHAR}, #{mt_charge,jdbcType=VARCHAR}, #{poi_charge,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{rider_fee,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.beans.MtOffer">
+    insert into mt_offer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="order_id != null">
+        order_id,
+      </if>
+      <if test="act_detail_id != null">
+        act_detail_id,
+      </if>
+      <if test="reduce_fee != null">
+        reduce_fee,
+      </if>
+      <if test="mt_charge != null">
+        mt_charge,
+      </if>
+      <if test="poi_charge != null">
+        poi_charge,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="rider_fee != null">
+        rider_fee,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="order_id != null">
+        #{order_id,jdbcType=VARCHAR},
+      </if>
+      <if test="act_detail_id != null">
+        #{act_detail_id,jdbcType=VARCHAR},
+      </if>
+      <if test="reduce_fee != null">
+        #{reduce_fee,jdbcType=VARCHAR},
+      </if>
+      <if test="mt_charge != null">
+        #{mt_charge,jdbcType=VARCHAR},
+      </if>
+      <if test="poi_charge != null">
+        #{poi_charge,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="rider_fee != null">
+        #{rider_fee,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.beans.MtOfferExample" resultType="java.lang.Long">
+    select count(*) from mt_offer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update mt_offer
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.order_id != null">
+        order_id = #{record.order_id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.act_detail_id != null">
+        act_detail_id = #{record.act_detail_id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reduce_fee != null">
+        reduce_fee = #{record.reduce_fee,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mt_charge != null">
+        mt_charge = #{record.mt_charge,jdbcType=VARCHAR},
+      </if>
+      <if test="record.poi_charge != null">
+        poi_charge = #{record.poi_charge,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rider_fee != null">
+        rider_fee = #{record.rider_fee,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update mt_offer
+    set id = #{record.id,jdbcType=BIGINT},
+      order_id = #{record.order_id,jdbcType=VARCHAR},
+      act_detail_id = #{record.act_detail_id,jdbcType=VARCHAR},
+      reduce_fee = #{record.reduce_fee,jdbcType=VARCHAR},
+      mt_charge = #{record.mt_charge,jdbcType=VARCHAR},
+      poi_charge = #{record.poi_charge,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      rider_fee = #{record.rider_fee,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.beans.MtOffer">
+    update mt_offer
+    <set>
+      <if test="order_id != null">
+        order_id = #{order_id,jdbcType=VARCHAR},
+      </if>
+      <if test="act_detail_id != null">
+        act_detail_id = #{act_detail_id,jdbcType=VARCHAR},
+      </if>
+      <if test="reduce_fee != null">
+        reduce_fee = #{reduce_fee,jdbcType=VARCHAR},
+      </if>
+      <if test="mt_charge != null">
+        mt_charge = #{mt_charge,jdbcType=VARCHAR},
+      </if>
+      <if test="poi_charge != null">
+        poi_charge = #{poi_charge,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="rider_fee != null">
+        rider_fee = #{rider_fee,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.beans.MtOffer">
+    update mt_offer
+    set order_id = #{order_id,jdbcType=VARCHAR},
+      act_detail_id = #{act_detail_id,jdbcType=VARCHAR},
+      reduce_fee = #{reduce_fee,jdbcType=VARCHAR},
+      mt_charge = #{mt_charge,jdbcType=VARCHAR},
+      poi_charge = #{poi_charge,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      rider_fee = #{rider_fee,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

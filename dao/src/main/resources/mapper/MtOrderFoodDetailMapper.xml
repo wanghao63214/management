@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.MtOrderFoodDetailMapper">
+  <resultMap id="BaseResultMap" type="com.beans.MtOrderFoodDetail">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="jjy_bill_id" jdbcType="VARCHAR" property="jjy_bill_id" />
+    <result column="order_id" jdbcType="VARCHAR" property="order_id" />
+    <result column="app_food_code" jdbcType="VARCHAR" property="app_food_code" />
+    <result column="food_name" jdbcType="VARCHAR" property="food_name" />
+    <result column="sku_id" jdbcType="VARCHAR" property="sku_id" />
+    <result column="quantity" jdbcType="VARCHAR" property="quantity" />
+    <result column="price" jdbcType="VARCHAR" property="price" />
+    <result column="box_num" jdbcType="VARCHAR" property="box_num" />
+    <result column="box_price" jdbcType="VARCHAR" property="box_price" />
+    <result column="spec" jdbcType="VARCHAR" property="spec" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="food_discount" jdbcType="VARCHAR" property="food_discount" />
+    <result column="food_property" jdbcType="VARCHAR" property="food_property" />
+    <result column="cart_id" jdbcType="VARCHAR" property="cart_id" />
+    <result column="is_rtn" jdbcType="INTEGER" property="is_rtn" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, jjy_bill_id, order_id, app_food_code, food_name, sku_id, quantity, price, box_num, 
+    box_price, spec, unit, food_discount, food_property, cart_id, is_rtn
+  </sql>
+  <select id="selectByExample" parameterType="com.beans.MtOrderFoodDetailExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mt_order_food_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mt_order_food_detail
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from mt_order_food_detail
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.beans.MtOrderFoodDetailExample">
+    delete from mt_order_food_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.beans.MtOrderFoodDetail">
+    insert into mt_order_food_detail (id, jjy_bill_id, order_id, 
+      app_food_code, food_name, sku_id, 
+      quantity, price, box_num, 
+      box_price, spec, unit, 
+      food_discount, food_property, cart_id, 
+      is_rtn)
+    values (#{id,jdbcType=BIGINT}, #{jjy_bill_id,jdbcType=VARCHAR}, #{order_id,jdbcType=VARCHAR}, 
+      #{app_food_code,jdbcType=VARCHAR}, #{food_name,jdbcType=VARCHAR}, #{sku_id,jdbcType=VARCHAR}, 
+      #{quantity,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR}, #{box_num,jdbcType=VARCHAR}, 
+      #{box_price,jdbcType=VARCHAR}, #{spec,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR}, 
+      #{food_discount,jdbcType=VARCHAR}, #{food_property,jdbcType=VARCHAR}, #{cart_id,jdbcType=VARCHAR}, 
+      #{is_rtn,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.beans.MtOrderFoodDetail">
+    insert into mt_order_food_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="jjy_bill_id != null">
+        jjy_bill_id,
+      </if>
+      <if test="order_id != null">
+        order_id,
+      </if>
+      <if test="app_food_code != null">
+        app_food_code,
+      </if>
+      <if test="food_name != null">
+        food_name,
+      </if>
+      <if test="sku_id != null">
+        sku_id,
+      </if>
+      <if test="quantity != null">
+        quantity,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="box_num != null">
+        box_num,
+      </if>
+      <if test="box_price != null">
+        box_price,
+      </if>
+      <if test="spec != null">
+        spec,
+      </if>
+      <if test="unit != null">
+        unit,
+      </if>
+      <if test="food_discount != null">
+        food_discount,
+      </if>
+      <if test="food_property != null">
+        food_property,
+      </if>
+      <if test="cart_id != null">
+        cart_id,
+      </if>
+      <if test="is_rtn != null">
+        is_rtn,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="jjy_bill_id != null">
+        #{jjy_bill_id,jdbcType=VARCHAR},
+      </if>
+      <if test="order_id != null">
+        #{order_id,jdbcType=VARCHAR},
+      </if>
+      <if test="app_food_code != null">
+        #{app_food_code,jdbcType=VARCHAR},
+      </if>
+      <if test="food_name != null">
+        #{food_name,jdbcType=VARCHAR},
+      </if>
+      <if test="sku_id != null">
+        #{sku_id,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null">
+        #{quantity,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="box_num != null">
+        #{box_num,jdbcType=VARCHAR},
+      </if>
+      <if test="box_price != null">
+        #{box_price,jdbcType=VARCHAR},
+      </if>
+      <if test="spec != null">
+        #{spec,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="food_discount != null">
+        #{food_discount,jdbcType=VARCHAR},
+      </if>
+      <if test="food_property != null">
+        #{food_property,jdbcType=VARCHAR},
+      </if>
+      <if test="cart_id != null">
+        #{cart_id,jdbcType=VARCHAR},
+      </if>
+      <if test="is_rtn != null">
+        #{is_rtn,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.beans.MtOrderFoodDetailExample" resultType="java.lang.Long">
+    select count(*) from mt_order_food_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update mt_order_food_detail
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.jjy_bill_id != null">
+        jjy_bill_id = #{record.jjy_bill_id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.order_id != null">
+        order_id = #{record.order_id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.app_food_code != null">
+        app_food_code = #{record.app_food_code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.food_name != null">
+        food_name = #{record.food_name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sku_id != null">
+        sku_id = #{record.sku_id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.quantity != null">
+        quantity = #{record.quantity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=VARCHAR},
+      </if>
+      <if test="record.box_num != null">
+        box_num = #{record.box_num,jdbcType=VARCHAR},
+      </if>
+      <if test="record.box_price != null">
+        box_price = #{record.box_price,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spec != null">
+        spec = #{record.spec,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unit != null">
+        unit = #{record.unit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.food_discount != null">
+        food_discount = #{record.food_discount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.food_property != null">
+        food_property = #{record.food_property,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cart_id != null">
+        cart_id = #{record.cart_id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.is_rtn != null">
+        is_rtn = #{record.is_rtn,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update mt_order_food_detail
+    set id = #{record.id,jdbcType=BIGINT},
+      jjy_bill_id = #{record.jjy_bill_id,jdbcType=VARCHAR},
+      order_id = #{record.order_id,jdbcType=VARCHAR},
+      app_food_code = #{record.app_food_code,jdbcType=VARCHAR},
+      food_name = #{record.food_name,jdbcType=VARCHAR},
+      sku_id = #{record.sku_id,jdbcType=VARCHAR},
+      quantity = #{record.quantity,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=VARCHAR},
+      box_num = #{record.box_num,jdbcType=VARCHAR},
+      box_price = #{record.box_price,jdbcType=VARCHAR},
+      spec = #{record.spec,jdbcType=VARCHAR},
+      unit = #{record.unit,jdbcType=VARCHAR},
+      food_discount = #{record.food_discount,jdbcType=VARCHAR},
+      food_property = #{record.food_property,jdbcType=VARCHAR},
+      cart_id = #{record.cart_id,jdbcType=VARCHAR},
+      is_rtn = #{record.is_rtn,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.beans.MtOrderFoodDetail">
+    update mt_order_food_detail
+    <set>
+      <if test="jjy_bill_id != null">
+        jjy_bill_id = #{jjy_bill_id,jdbcType=VARCHAR},
+      </if>
+      <if test="order_id != null">
+        order_id = #{order_id,jdbcType=VARCHAR},
+      </if>
+      <if test="app_food_code != null">
+        app_food_code = #{app_food_code,jdbcType=VARCHAR},
+      </if>
+      <if test="food_name != null">
+        food_name = #{food_name,jdbcType=VARCHAR},
+      </if>
+      <if test="sku_id != null">
+        sku_id = #{sku_id,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null">
+        quantity = #{quantity,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="box_num != null">
+        box_num = #{box_num,jdbcType=VARCHAR},
+      </if>
+      <if test="box_price != null">
+        box_price = #{box_price,jdbcType=VARCHAR},
+      </if>
+      <if test="spec != null">
+        spec = #{spec,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null">
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="food_discount != null">
+        food_discount = #{food_discount,jdbcType=VARCHAR},
+      </if>
+      <if test="food_property != null">
+        food_property = #{food_property,jdbcType=VARCHAR},
+      </if>
+      <if test="cart_id != null">
+        cart_id = #{cart_id,jdbcType=VARCHAR},
+      </if>
+      <if test="is_rtn != null">
+        is_rtn = #{is_rtn,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.beans.MtOrderFoodDetail">
+    update mt_order_food_detail
+    set jjy_bill_id = #{jjy_bill_id,jdbcType=VARCHAR},
+      order_id = #{order_id,jdbcType=VARCHAR},
+      app_food_code = #{app_food_code,jdbcType=VARCHAR},
+      food_name = #{food_name,jdbcType=VARCHAR},
+      sku_id = #{sku_id,jdbcType=VARCHAR},
+      quantity = #{quantity,jdbcType=VARCHAR},
+      price = #{price,jdbcType=VARCHAR},
+      box_num = #{box_num,jdbcType=VARCHAR},
+      box_price = #{box_price,jdbcType=VARCHAR},
+      spec = #{spec,jdbcType=VARCHAR},
+      unit = #{unit,jdbcType=VARCHAR},
+      food_discount = #{food_discount,jdbcType=VARCHAR},
+      food_property = #{food_property,jdbcType=VARCHAR},
+      cart_id = #{cart_id,jdbcType=VARCHAR},
+      is_rtn = #{is_rtn,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
